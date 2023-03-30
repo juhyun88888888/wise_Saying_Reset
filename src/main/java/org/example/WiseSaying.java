@@ -1,26 +1,26 @@
 package org.example;
 
 public class WiseSaying {
-    int id;
-    String content;
-    String authorName;
-    WiseSaying() {
+    private int id;
+    private String content;
+    private String authorName;
+    WiseSaying(int id, String content, String authorName) {
         this.id = id;
         this.content = content;
         this.authorName = authorName;
     }
 
-    private int getId () {
-        return this.id;
+    public int getId () {
+        return id;
     }
 
-    private String getcontent () {
-        return this.content;
+    public String getcontent () {
+        return content;
+    }
+    public String getAuthorName () {
+        return authorName;
     }
 
-    private String getAuthorName () {
-        return this.authorName;
-    }
 }
 
 
