@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.System.controller.Systemcontroller;
+import org.example.wiseSaying.controller.WiseSayingController;
+
 import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,6 +14,9 @@ public class Reset {
     }
 
     public void run() {
+        Systemcontroller systemController = new Systemcontroller();
+        //등록할지 종료할지를 만드는 컨드롤러
+        WiseSayingController wiseSayingController = new WiseSayingController();
 
         int count = 0;
         ArrayList<WiseSaying> wiseSayings = new ArrayList<WiseSaying>();
@@ -21,6 +27,7 @@ public class Reset {
             if(command.equals("종료")){
                 break;
             } else if (command.equals("등록")) {
+
                 System.out.printf("명언 :");
                 String content = sc.nextLine().trim();
                 System.out.println("현재를 사랑하라.");
@@ -37,7 +44,7 @@ public class Reset {
                 System.out.println("번호/ 작가/ 명언");
                 System.out.println("-".repeat(30));
 
-                for (int i = wiseSayings.size() -1; i >= 0; i++){
+                for (int i = wiseSayings.size() -1; i >= 0; i--){
                     WiseSaying wiseSaying = wiseSayings.get(i);
                     System.out.printf("%d / %s / %s\n", wiseSaying.getId(), wiseSaying.getcontent(), wiseSaying.getAuthorName());
                 }
