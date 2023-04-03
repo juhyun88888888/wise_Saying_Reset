@@ -2,11 +2,6 @@ package org.example;
 import org.example.System.controller.Systemcontroller;
 import org.example.wiseSaying.controller.WiseSayingController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 public class App {
 
     public void run() {
@@ -15,40 +10,32 @@ public class App {
 
         System.out.println("== 명언 앱 ==");
         while (true) {
+            System.out.printf("명령)");
             String command = Container.getScannner().nextLine().trim(); //컨테이너 안에 있는 스캐너 가져옴
             //nextLine()쓰는 이유> 엔터치기 전까지 쓴 모든 문자열을 리턴하기 때문
             //next()> 공백을 기준으로 문자, 문자열 입력받음
             //trim > 종료 구문 넣을때 스페이스 공백 없애줄려고 씀
             //구문 해석> String 문장 ~을 한다. = Container 의 get.Scanner()의 문자, 문자열을 실행 할텐데, 공백을 없애줘라
             //command 패턴 예시 > 난 너를 사랑해 라는 구문이 있다면 command를 쓸때 (난 너를 사랑함)을 한다.
-            if (command.equals("종료")) { //시스템 컨드롤러 작동하면 구문 종료
-                systemController.exit();
-                break;
-            } else if (command.equals("등록")) {
-                wiseSayingController.write();
-            } else if (command.equals("목록")) {
-                wiseSayingController.list();
-            } else if (command.startsWith("삭제")) { //이퀄은 값이 동일하게 들어올 경우만 성립.
-                // 삭제라는 명령이 들어왔는지 확인
-                //startwiths>문자열이특정 문자나 문자열로 끝나는지 확인할 수 있는 함수
-                String[] commandBits = command.split("\\?", 2);
-                //regex > 문자열을 구분하기 위한 정규표현
-                //limit > 분류할 문자열의 수
+            Rq rq = new Rq(command);
+            rq.getActionCode();
+            rq.getParams("id");
 
-                String actionCode = commandBits[0];
-                String[] paramsBits = commandBits[1].split("&");
-
-                Map<String, String> params = new HashMap<>();
-
-                for (String paramsStr : paramsBits) {
-                    String[] paramsStrBits = paramsStr.split("=", 2);
-                    String key = paramsStrBits[0];
-                    String value = paramsStrBits[1];
-                    System.out.println(key + value);
-                }
-                System.out.println(params);
-                wiseSayingController.remove();
+            switch (rq.getActionCode()) { //if문이 3개 이상 넘어갈경우 swich문 사용
+                case "종료":
+                    systemController.exit(); //종료를 입력할때 실행될 구문
+                    return; //swich문 자체에서 완전한 탈출시키는것은 retrun
+                case "등록":
+                    wiseSayingController.write();
+                    break;
+                case "목록":
+                    wiseSayingController.list();
+                    break;
+                case "삭제":
+                    wiseSayingController.remove(rq);
+                    break;
             }
+
         }
     }
 }
