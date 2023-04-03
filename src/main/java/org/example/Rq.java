@@ -21,7 +21,7 @@ public class Rq {
         for (String paramsStr : paramsBits) { //parpamsBits
             String[] paramsStrBits = paramsStr.split("=", 2);
 
-            if (paramsStrBits.length == 1) continue; //안정성을 위해 작성된 코드
+            if (paramsStrBits.length == 1) continue; // continue -> if문 조건이 맞으면 다시 위의 for문으로 돌아가라.
 
             String key = paramsStrBits[0];
             String value = paramsStrBits[1];
@@ -39,7 +39,7 @@ public class Rq {
 
     public int getIntParams(String name, int defaultValue) {
         try {
-            return Integer.parseInt((getParams(name));
+            return Integer.parseInt((getParams(name)));
         } catch (NumberFormatException e) {
             System.out.println("숫자가 아닌 정수.");
         }

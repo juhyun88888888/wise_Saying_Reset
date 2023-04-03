@@ -21,4 +21,12 @@ public class WiseSaying {
         return authorName;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
 }
